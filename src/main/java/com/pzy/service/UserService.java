@@ -34,7 +34,7 @@ public class UserService {
                     public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                     Predicate predicate = cb.conjunction();
                     if (userName != null) {
-                         predicate.getExpressions().add(cb.like(root.get("name").as(String.class), userName+"%"));
+                         predicate.getExpressions().add(cb.like(root.get("username").as(String.class), userName+"%"));
                     }
                     return predicate;
                     }

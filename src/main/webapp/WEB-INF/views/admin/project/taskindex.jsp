@@ -22,7 +22,7 @@
     <link href="${pageContext.request.contextPath}/css/style.min.css?v=4.1.0" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
+ <link href="${pageContext.request.contextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 </head>
 
 <body >
@@ -32,45 +32,24 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>儿童信息查询 </h5>
+                        <h5>我的任务</h5>
                         <div class="ibox-tools">
                         </div>
-                    </div>
-                    
-                    <div class="ibox-content">
-                        <form role="form" class="form-inline">
-                            <div class="form-group">
-                                <label for="exampleInputEmail2" class="sr-only">儿童姓名</label>
-                                <input type="text" placeholder="儿童姓名" id="_name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                               <label for="exampleInputEmail4" class="sr-only">县区</label>
-			                                   <select class="form-control " name="account">
-				                                        <option>-县区-</option>
-				                                       	<c:forEach items="${xzqhxq}" var="bean">
-				                                       		 <option value="${bean.dm }">${bean.name }</option>
-				                                       	</c:forEach>
-                                   				 </select>
-                            </div>
-                            <button class="btn btn-primary" type="button" id='_search'>查询</button>
-                        </form>
                     </div>
                     
                     <div class="ibox-content">
                          <table ID='dt_table_view' class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-									<th>儿童编号</th>
-									<th>儿童姓名</th>
-									<th>出生日期</th>
-									<th>父亲姓名</th>
-									<th>母亲姓名</th>
-									<th>父亲手机</th>
-									<th>母亲手机</th>
-									<th>家庭电话</th>
-									<th>县区</th>
-									<th>接种点</th>
-									<th>村庄</th>
+                                   <th>项目名称</th>
+									<th>项目开始日期</th>
+									<th>项目结束日期</th>
+									<th>处理人</th>
+									<th>应用控制审计</th>
+									<th>一般控制审计</th>
+									<th>项目管理审计</th>
+									<th>状态</th>
+									<th>提交工作底稿</th>
 								</tr>
                             </thead>
                        		 <tbody>
@@ -92,7 +71,7 @@
     <!-- Data Tables -->
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
-    
+     <script src="${pageContext.request.contextPath}/js/plugins/toastr/toastr.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/common.js?v=1.0.0"></script>
   
     <script src="${pageContext.request.contextPath}/js/jquerydatatable.defaults.js"></script>
@@ -102,34 +81,48 @@
    	
     $.common.setContextPath('${pageContext.request.contextPath}');
         $(document).ready(function(){
+        	<c:if test="${tip!=null}">
+	  		  toastr.success('${tip}');
+	    </c:if>
         	var table=$('#dt_table_view').DataTable( {
 	            "ajax": {
-	                "url":  $.common.getContextPath() + "/admin/child/list",
+	                "url":  $.common.getContextPath() + "/admin/project/tasklist",
 	                "type": "POST"
 	              },
 				"columns" : [{
-					"data" : "id"
+					"data" : "project.name"
 				}, {
-					"data" : "name"
+					"data" : "project.star"
 				},{
-					"data" : "birthday",
+					"data" : "project.end",
 				},{
-					"data" : "fname",
+					"data" : "user.username",
 				},{
-					"data" : "mname",
+					"data" : "key1",
 				},{
-					"data" : "ftel",
+					"data" : "key2",
 				},{
-					"data" : "mtel",
+					"data" : "key3",
 				},{
-					"data" : "htel",
+					"data" : "state",
 				},{
-					"data" : "xqdz",
-				},{
-					"data" : "jzd",
-				},{
-					"data" : "czdq",
+					"data" : "id",
 				}] ,
+				 "columnDefs": [
+				                {
+				                    "render": function ( data, type, row ) {
+				                        return "<span class='label label-primary'>"+data+"</span>";
+				                    },
+				                    "targets":7
+				                }, {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='tasksubmit?id="+data+"'>提交</a>";
+				                    },
+				                    "targets":8
+				                }
+				               
+				            ],
+									
         		"initComplete": function () {
         			var api = this.api();
         			$("#_search").on("click", function(){

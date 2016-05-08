@@ -22,7 +22,7 @@
     <link href="${pageContext.request.contextPath}/css/style.min.css?v=4.1.0" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
+  <link href="${pageContext.request.contextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 </head>
 
 <body >
@@ -58,7 +58,8 @@
 									<th>email</th>
 									<th>电话</th>
 									<th>工作</th>
-									<th>职位</th>
+									<th>角色</th>
+										<th>删除</th>
 								</tr>
                             </thead>
                        		 <tbody>
@@ -82,7 +83,7 @@
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
     
     <script src="${pageContext.request.contextPath}/js/common.js?v=1.0.0"></script>
-  
+   <script src="${pageContext.request.contextPath}/js/plugins/toastr/toastr.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquerydatatable.defaults.js"></script>
   
   
@@ -90,6 +91,9 @@
    	
     $.common.setContextPath('${pageContext.request.contextPath}');
         $(document).ready(function(){
+        	<c:if test="${state=='success'}">
+	  		  toastr.success('${tip}');
+	    </c:if>
         	var table=$('#dt_table_view').DataTable( {
 	            "ajax": {
 	                "url":  $.common.getContextPath() + "/admin/user/list",
@@ -110,8 +114,19 @@
 				},{
 					"data" : "job",
 				},{
-					"data" : "grade",
+					"data" : "role",
+				},{
+					"data" : "id",
 				}] ,
+				 "columnDefs": [
+				                {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='delete?id="+data+"'>删除</a>";
+				                    },
+				                    "targets":8
+				                }
+				               
+				            ],
         		"initComplete": function () {
         			var api = this.api();
         			$("#_search").on("click", function(){

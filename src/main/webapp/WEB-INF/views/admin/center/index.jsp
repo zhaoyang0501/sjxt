@@ -22,30 +22,72 @@
        <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
-                   <div class="" id="ibox-content">
-
-<c:forEach items="${trans}" var="bean">
-  <div class="vertical-timeline-block">
-                                        <div class="vertical-timeline-icon blue-bg">
-                                            <i class="fa fa-file-text"></i>
-                                        </div>
-
-                                        <div class="vertical-timeline-content">
-                                            <h2>我的培训</h2>
-                                            <p>由${bean.teacher }主持的关于${bean.name }的培训
-                                            </p>
-                                            <a href="" class="btn btn-sm btn-primary"> 更多信息</a>
-                                            <span class="vertical-date">
-                                         <br>
-                                        <small>${bean.createDate}</small>
-                                    </span>
-                                        </div>
-                                    </div>
-</c:forEach>
-                                       
-                                </div>
-
+                    <div class="ibox-title">
+                        <h5>修改密码</h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12 b-r">
+		                           <form  class="form-horizontal" action="${pageContext.request.contextPath}/admin/center/docenterpassword" method="post">
+		                           	<input type="hidden" name="id" value="${task.id }"/>
+		                           	<table class='table table-bordered'>
+		                           		<thead>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>修改密码<h3></h3></td></tr>
+		                           		</thead>
+		                           		<tbody>
+		                           			<tr>
+		                           				<td>用户名</td>
+		                           				<td>${sessionScope.adminuser.username }</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>电话</td>
+		                           				<td>${sessionScope.adminuser.tel }</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>地址</td>
+		                           				<td>${sessionScope.adminuser.address }</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>邮箱</td>
+		                           				<td>${sessionScope.adminuser.email }</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>旧密码</td>
+		                           				<td> <input name='oldpassword' type="password" class="form-control"></td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>新密码</td>
+		                           				<td> <input name='newpassword' type="password" class="form-control"></td>
+		                           			</tr>
+		                           				<tr>
+		                           				<td>新密码确认</td>
+		                           				<td> <input name='newpasswordtwo' type="password" class="form-control"></td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>提示</td>
+		                           				<td > 
+		                           					 <h4>提示</h4>
+		                               					 <ol>
+									    					<li>必须验证密码</li>
+									    				</ol>
+		                           				</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td colspan="6"> 
+		                           					 <div class="col-sm-4 col-sm-offset-2">
+		                                  			  		<button class="btn btn-primary" type="submit">确认修改</button>
+		                                   				    <button class="btn btn-white" type="submit">取消</button>
+		                               				 </div>
+		                           				</td>
+		                           			</tr>
+		                           		</tbody>
+		                           	</table> 
+		                           	</form>
                             </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +103,7 @@
     
     <script>
 		$.common.setContextPath('${pageContext.request.contextPath}');
-		<c:if test="${state=='success'}">
+		<c:if test="${tip!=null}">
 	  		  toastr.success('${tip}');
 	    </c:if>
 		
@@ -100,7 +142,6 @@
     		});	
 	    }
         $(document).ready(function(){
-        	init_xzqhsq();
         	$(".input-group.date").datepicker({
         		language:  'zh-CN',
     	        weekStart: 1,

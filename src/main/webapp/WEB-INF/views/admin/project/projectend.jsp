@@ -20,45 +20,66 @@
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
        <div class="row">
-           <div class="col-sm-12">
+            <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的工资流水</h5>
+                        <h5>完工审计报告</h5>
+                        <div class="ibox-tools">
+                        </div>
                     </div>
                     <div class="ibox-content">
-<table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>所属月份</th>
-                                    <th>	员工</th>
-                                    <th>基本工资</th>
-                                     <th>	岗位工资</th>
-                                     <th>绩效工资</th>
-                                      <th>扣除社保</th>
-                                       <th>实发工资</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${pays }" var="bean">
-                                <tr>
-                                    <td>${bean.id }</td>
-                                    <td>${bean.month }</td>
-                                    <td>${bean.user.username }</td>
-                                     <td>${bean.pay1 }</td>
-                                    <td>${bean.pay2 }</td>
-                                    <td>${bean.pay3 }</td>
-                                    <td>${bean.pay4}</td>
-                                    <td>${bean.pay5}</td>
-                                </tr>
-                            </c:forEach>
-                            
-                            </tbody>
-                        </table>
-                                       
-                                </div>
-
+                        <div class="row">
+                            <div class="col-sm-12 b-r">
+		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/project/projectend" method="post">
+		                           	<table class='table table-bordered'>
+		                           		<thead>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>完工审计报告<h3></h3></td></tr>
+		                           		</thead>
+		                           		<tbody>
+		                           			<tr>
+		                           				<td>项目名称</td>
+		                           				<td>
+		                           					<select name="id" class="form-control">
+							                        		<c:forEach items="${projects }" var="bean">
+							                        			<option value="${bean.id }">${bean.name }</option>
+							                        		</c:forEach>
+							                        	</select>
+		                           				</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>完工内容</td>
+		                           				<td>
+		                           					<textarea name='remark1' rows="4" cols="" style="width: 80%"></textarea>
+		                           				</td>
+		                           			</tr>
+		                           			
+		                           			</tr>
+		                           				<td>报告文件</td>
+		                           					<td > <input name='docpath' type="file" class="form-control"></td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td>提示</td>
+		                           				<td > 
+		                           					 <h4>提示</h4>
+		                               					 <ol>
+									    					<li>所有必填项必须要填写</li>
+									    				</ol>
+		                           				</td>
+		                           			</tr>
+		                           			<tr>
+		                           				<td colspan="6"> 
+		                           					 <div class="col-sm-4 col-sm-offset-2">
+		                                  			  		<button class="btn btn-primary" type="submit">保存内容</button>
+		                                   				    <button class="btn btn-white" type="submit">取消</button>
+		                               				 </div>
+		                           				</td>
+		                           			</tr>
+		                           		</tbody>
+		                           	</table> 
+		                           	</form>
                             </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +95,7 @@
     
     <script>
 		$.common.setContextPath('${pageContext.request.contextPath}');
-		<c:if test="${state=='success'}">
+		<c:if test="${tip!=null}">
 	  		  toastr.success('${tip}');
 	    </c:if>
 		
@@ -113,7 +134,6 @@
     		});	
 	    }
         $(document).ready(function(){
-        	init_xzqhsq();
         	$(".input-group.date").datepicker({
         		language:  'zh-CN',
     	        weekStart: 1,

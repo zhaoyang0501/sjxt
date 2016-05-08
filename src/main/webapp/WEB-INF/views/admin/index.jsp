@@ -43,13 +43,8 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
-                                </li>
-                                <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                                </li>
-                                <li><a class="J_menuItem" href="contacts.html">联系我们</a>
-                                </li>
-                                <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                                
+                                <li><a class="J_menuItem" href="center/index">修改密码</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="login.html">安全退出</a>
@@ -60,7 +55,7 @@
                         </div>
                     </li>
                     
-                    <c:if test="${sessionScope.adminuser.username=='admin' }">
+                    <c:if test="${sessionScope.adminuser.role=='管理员' }">
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
@@ -68,22 +63,33 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                           <li><a class="J_menuItem" href="tran/index">所有培训</a>
+                           <li><a class="J_menuItem" href="tran/index">所有单位</a>
                             </li>
-                            <li><a class="J_menuItem" href="tran/create">培训登记</a>
+                            <li><a class="J_menuItem" href="tran/create">单位登记</a>
                             </li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">审计项目</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                           <li><a class="J_menuItem" href="project/index">所有项目</a>
+                            </li>
+                            <li><a class="J_menuItem" href="project/create">发布审计项目</a>
+                            </li>
+                            
+                             <li><a class="J_menuItem" href="project/taskindex">我的任务</a>
+                            </li>
+                            
+                            <li><a class="J_menuItem" href="project/projectend">提交完工报告</a>
+                            </li>
+                            
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">审计项目管理 </span><span class="label label-warning pull-right">16</span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="pay/index">工资查询</a>
-                            </li>
-                            <li><a class="J_menuItem" href="pay/create">工资录入</a>
-                            </li>
-                        </ul>
-                    </li>
                     
                     <li>
                         <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">人员管理 </span><span class="fa arrow"></span></a>
@@ -94,8 +100,49 @@
                         </ul>
                     </li>
  						</c:if>
- 						
-
+ 				
+ 				
+ 				 <c:if test="${sessionScope.adminuser.role=='组长' }">
+					<li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">审计项目</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                           <li><a class="J_menuItem" href="project/index">我的项目</a>
+                            </li>
+                            <li><a class="J_menuItem" href="project/create">发布审计项目</a>
+                            </li>
+                            
+                             <li><a class="J_menuItem" href="project/taskindex">我的任务</a>
+                            </li>
+                            
+                            <li><a class="J_menuItem" href="project/projectend">提交完工报告</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+ 						</c:if>
+					
+					<c:if test="${sessionScope.adminuser.role=='审计人员' }">
+					<li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">审计项目</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                           <li><a class="J_menuItem" href="project/index">我的项目</a>
+                            </li>
+                             <li><a class="J_menuItem" href="project/taskindex">我的任务</a>
+                            </li>
+                            
+                          
+                            
+                        </ul>
+                    </li>
+ 						</c:if>
                 </ul>
             </div>
         </nav>

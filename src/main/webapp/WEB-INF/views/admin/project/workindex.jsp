@@ -22,7 +22,7 @@
     <link href="${pageContext.request.contextPath}/css/style.min.css?v=4.1.0" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
+ <link href="${pageContext.request.contextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 </head>
 
 <body >
@@ -32,32 +32,24 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>调任查询 </h5>
+                        <h5>工作底稿查询</h5>
                         <div class="ibox-tools">
                         </div>
-                    </div>
-                    
-                    <div class="ibox-content">
-                        <form role="form" class="form-inline">
-                            <div class="form-group">
-                                <label for="exampleInputEmail2" class="sr-only">姓名</label>
-                                <input type="text" placeholder="员工姓名" id="_name" class="form-control">
-                            </div>
-                            <button class="btn btn-primary" type="button" id='_search'>查询</button>
-                        </form>
                     </div>
                     
                     <div class="ibox-content">
                          <table ID='dt_table_view' class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-									<th>员工姓名</th>
-									<th>员工工号</th>
-									<th>调任时间</th>
-									<th>调任前职位</th>
-									<th>调任前职称</th>
-									<th>调任后职位</th>
-									<th>调任后职称</th>
+                                   <th>项目名称</th>
+									<th>底稿提交人</th>
+									<th>应用控制审计</th>
+									<th>一般控制审计</th>
+									<th>项目管理审计</th>
+									<th>发现的问题</th>
+									<th>可能的影响</th>
+									<th>提交结果</th>
+									<th>底稿</th>
 								</tr>
                             </thead>
                        		 <tbody>
@@ -79,7 +71,7 @@
     <!-- Data Tables -->
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
-    
+     <script src="${pageContext.request.contextPath}/js/plugins/toastr/toastr.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/common.js?v=1.0.0"></script>
   
     <script src="${pageContext.request.contextPath}/js/jquerydatatable.defaults.js"></script>
@@ -89,26 +81,48 @@
    	
     $.common.setContextPath('${pageContext.request.contextPath}');
         $(document).ready(function(){
+        	<c:if test="${tip!=null}">
+	  		  toastr.success('${tip}');
+	    </c:if>
         	var table=$('#dt_table_view').DataTable( {
 	            "ajax": {
-	                "url":  $.common.getContextPath() + "/admin/leave/list",
-	                "type": "POST"
+	                "url":  $.common.getContextPath() + "/admin/project/worklist?pid=${param.pid}",
+	                "type": "GET"
 	              },
 				"columns" : [{
-					"data" : "user.name"
-				}, {
-					"data" : "user.username"
-				}, {
-					"data" : "signDate"
+					"data" : "project.name"
 				},{
-					"data" : "dept",
+					"data" : "user.username",
 				},{
-					"data" : "leavel",
+					"data" : "key1",
 				},{
-					"data" : "todept",
+					"data" : "key2",
 				},{
-					"data" : "tolevel",
+					"data" : "key3",
+				},{
+					"data" : "remark",
+				},{
+					"data" : "remark1",
+				},{
+					"data" : "state",
+				},{
+					"data" : "docpath",
 				}] ,
+				 "columnDefs": [
+				                {
+				                    "render": function ( data, type, row ) {
+				                        return "<span class='label label-primary'>"+data+"</span>";
+				                    },
+				                    "targets":7
+				                }, {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='/upload/"+data+"'>下载底稿</a>";
+				                    },
+				                    "targets":8
+				                }
+				               
+				            ],
+									
         		"initComplete": function () {
         			var api = this.api();
         			$("#_search").on("click", function(){
@@ -118,7 +132,6 @@
         			
         		} 
         	 } ).on('preXhr.dt', function ( e, settings, data ) {
-		        data.name = $("#_name").val();
 		        return true;
 		     } ).on('xhr.dt', function ( e, settings, json, xhr ) {
 		    	 $(".dataTables_processing").hide();	

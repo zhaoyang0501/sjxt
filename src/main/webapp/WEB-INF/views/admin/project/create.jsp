@@ -23,51 +23,59 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>工资登记 </h5>
+                        <h5>审计项目发布</h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12 b-r">
-		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/pay/create" method="post">
+		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/project/create" method="post">
 		                           	<table class='table table-bordered'>
 		                           		<thead>
-		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>工资单登记1<h3></h3></td></tr>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>审计项目发布<h3></h3></td></tr>
 		                           		</thead>
 		                           		<tbody>
 		                           			<tr>
-		                           				<td>员工姓名</td>
+		                           				<td>项目编码</td>
+		                           				<td> <input name='sn' type="text" class="form-control"></td>
+		                           				
+		                           				<td>项目名称</td>
 		                           				<td> <input name='name' type="text" class="form-control"></td>
 		                           				
-		                           				<td>员工工号</td>
-		                           				<td> <input name='user.username' type="text" class="form-control"></td>
-		                           				
-		                           				<td>月份</td>
+		                           				<td>被审核单位</td>
 		                           				<td> 
-							                        <input name='month' type="text" class="form-control input-group date" >
+							                        	<select name="tran.id" class="form-control">
+							                        		<c:forEach items="${trans }" var="bean">
+							                        			<option value="${bean.id }">${bean.name }</option>
+							                        		</c:forEach>
+							                        	</select>
 		                           				</td>
 		                           			</tr>
 		                           			
 		                           			
 		                           			<tr>
-		                           				<td>基本工资</td>
-		                           				<td> <input name='pay1' type="text" class="form-control"></td>
-		                           				<td>岗位工资</td>
-		                           				<td> <input name='pay2' type="text" class="form-control"></td>
-		                           				<td>绩效工资</td>
-		                           				<td> <input name='pay3'  type="text" class="form-control"></td>
+		                           				<td>项目组长</td>
+		                           				<td > 
+		                           					<select name="leader.id" class="form-control">
+							                        		<c:forEach items="${users }" var="bean">
+							                        			<option value="${bean.id }">${bean.name }</option>
+							                        		</c:forEach>
+							                        	</select>
+							                     </td>
+		                           				<td>审计开始日期</td>
+		                           				<td > <input name='star' type="text" class="form-control input-group date"></td>
+		                           				<td>审计结束日期</td>
+		                           				<td > <input name='end' type="text" class="form-control input-group date"></td>
+		                           		
 		                           			</tr>
 		                           			<tr>
-		                           				<td>扣除社保</td>
-		                           				<td> <input name='pay4' type="text" class="form-control"></td>
-		                           				<td>实发工资</td>
-		                           				<td colspan="3"> <input  name='pay5' type="text"  class="form-control"></td>
-		                           				
-		                           			</tr>
+		                           				<td>参与人员</td>
+		                           				<td colspan="5"> <input name='joinedusers' type="text" class="form-control"></td>
+		                           				</tr>
 		                           			
 		                           			<tr>
-		                           				<td>备注</td>
+		                           				<td>审计要求</td>
 		                           				<td colspan="5"> 
 		                           					<textarea name='remark' rows="4" cols="" style="width: 80%"></textarea>
 		                           				</td>
@@ -77,8 +85,8 @@
 		                           				<td colspan="5"> 
 		                           					 <h4>提示</h4>
 		                               					 <ol>
-									    					<li>每个月录入一次</li>
-									    					<li>注意保密</li>
+									    					<li>审核单必须填写完整</li>
+									    					<li>日期变更必须提交告诉管理员</li>
 									    				</ol>
 		                           				</td>
 		                           			</tr>
@@ -154,7 +162,7 @@
         		language:  'zh-CN',
     	        weekStart: 1,
     	        todayBtn:  1,
-    	        format:'yyyymm',
+    	        format:'yyyy-mm-dd',
     			autoclose: 1,
     			todayHighlight: 1,
     			startView: 2,

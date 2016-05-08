@@ -40,14 +40,14 @@
             <div class="col-sm-7">
                 <div class="signin-info">
                     <div class="logopanel m-b">
-                        <h1>审计系统后台登录</h1>
+                        <h1>金融企业信息系统审计工作系统</h1>
                     </div>
                 </div>
             </div>
             <div class="col-sm-5">
                 <form method="post" action="gologin">
                     <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">审计系统管理</p>
+                    <p class="m-t-md">金融企业信息系统审计工作系统</p>
                     <input type="text" name='userName' class="form-control uname" placeholder="用户名" />
                     <input type="password" name='password' class="form-control pword m-b" placeholder="密码" />
                     <a href="">忘记密码了？</a>

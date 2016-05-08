@@ -32,7 +32,7 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>培训查询 </h5>
+                        <h5>单位查询 </h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -40,8 +40,8 @@
                     <div class="ibox-content">
                         <form role="form" class="form-inline">
                             <div class="form-group">
-                                <label for="exampleInputEmail2" class="sr-only">培训主题 </label>
-                                <input type="text" placeholder="培训主题" id="_name" class="form-control">
+                                <label for="exampleInputEmail2" class="sr-only">单位 </label>
+                                <input type="text" placeholder="单位名称" id="_name" class="form-control">
                             </div>
                             <button class="btn btn-primary" type="button" id='_search'>查询</button>
                         </form>
@@ -51,12 +51,12 @@
                          <table ID='dt_table_view' class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-									<th>流水号</th>
-									<th>培训标题</th>
-									<th>培训形式</th>
-									<th>培训部门</th>
-									<th>培训人</th>
-									<th>培训对象</th>
+                                   <th>登记流水号</th>
+									<th>单位名称</th>
+									<th>单位性质</th>
+									<th>单位识别码</th>
+									<th>单位负责人</th>
+									<th>主营业务</th>
 								</tr>
                             </thead>
                        		 <tbody>

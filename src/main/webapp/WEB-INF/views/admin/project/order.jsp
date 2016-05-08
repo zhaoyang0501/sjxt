@@ -23,89 +23,68 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>调任登记 </h5>
+                        <h5>项目名称</h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12 b-r">
-		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/leave/create" method="post">
+		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/project/task" method="post">
+		                           	<input type="hidden" name="project.id" value="${project.id }"/>
 		                           	<table class='table table-bordered'>
 		                           		<thead>
-		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>调任单<h3></h3></td></tr>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>审计任务分配<h3></h3></td></tr>
 		                           		</thead>
 		                           		<tbody>
 		                           			<tr>
-		                           				<td>姓名</td>
-		                           				<td> <input name='name' type="text" class="form-control"></td>
+		                           				<td>项目名称</td>
+		                           				<td>${project.name }</td>
 		                           				
-		                           				<td>工号</td>
-		                           				<td> <input name='user.username' type="text" class="form-control"></td>
-		                           				
-		                           				<td>签发日期</td>
-		                           				<td> 
-							                        <input name='signDate' type="text" class="form-control  input-group date" >
-		                           				</td>
 		                           			</tr>
-		                           			
+		                           			<tr>
+		                           				<td>任务处理人</td>
+		                           				<td><select name="user.id" class="form-control">
+							                        		<c:forEach items="${users }" var="bean">
+							                        			<option value="${bean.id }">${bean.name }</option>
+							                        		</c:forEach>
+							                        	</select></td>
+		                           				</tr>
 		                           			
 		                           			<tr>
-		                           				<td>原职称</td>
+		                           				<td>一、应用控制审计</td>
 		                           				<td > 
-		                           				  <select name='dept' class="form-control">
-		                           						<option value='普工'>普工</option>
-		                           						<option value='副科'>副科</option>
-		                           						<option value='科长'>科长</option>
-		                           						<option value='副部长'>副部长</option>
-		                           						<option value='部长'>部长</option>
-		                           						<option value='经理'>经理</option>
-		                           						<option value='总经理'>总经理</option>
-		                           					</select>
-		                           				</td>
-		                           				<td>原部门</td>
-		                           				<td colspan="3"> 
-		                           				    <select name='leavel' class="form-control">
-		                           						<option value='财务部'>财务部</option>
-		                           						<option value='人力资源部'>人力资源部</option>
-		                           						<option value='行政管理部'>行政管理部</option>
-		                           						<option value='市场部'>市场部</option>
-		                           						<option value='项目部'>项目部</option>
-		                           						<option value='产品部'>产品部</option>
-		                           					</select>
+		                           					<c:forEach items="${categorys1 }" var="bean">
+		                           					
+		                           					<div class="checkbox">
+													    <label>
+													      <input style="margin-top: 4px" type="checkbox" name="key1"  value="${bean.name }"> ${bean.name }
+													    </label>
+													  </div>
+		                           					</c:forEach>
 		                           				</td>
 		                           			</tr>
-		                           			
-		                           			<tr>
-		                           				<td>调任后职务</td>
+		                           				<td>二、一般控制审计</td>
 		                           				<td > 
-		                           				<select name='todept' class="form-control">
-		                           						<option value='普工'>普工</option>
-		                           						<option value='副科'>副科</option>
-		                           						<option value='科长'>科长</option>
-		                           						<option value='副部长'>副部长</option>
-		                           						<option value='部长'>部长</option>
-		                           						<option value='经理'>经理</option>
-		                           						<option value='总经理'>总经理</option>
-		                           					</select>
-		                           				</td>
-		                           				<td>调任后职称</td>
-		                           				<td colspan="3">
-		                           				
-		                           				 <select name='tolevel' class="form-control">
-		                           						<option value='财务部'>财务部</option>
-		                           						<option value='人力资源部'>人力资源部</option>
-		                           						<option value='行政管理部'>行政管理部</option>
-		                           						<option value='市场部'>市场部</option>
-		                           						<option value='项目部'>项目部</option>
-		                           						<option value='产品部'>产品部</option>
-		                           					</select>
+		                           					<c:forEach items="${categorys2 }" var="bean">
+		                           						<div class="checkbox">
+													    <label>
+													      <input style="margin-top: 4px" type="checkbox" name="key2"  value="${bean.name }"> ${bean.name }
+													    </label>
+													  </div>
+		                           					</c:forEach>
 		                           				</td>
 		                           			</tr>
-		                           			<tr>
-		                           				<td>调任原因</td>
-		                           				<td colspan="5"> 
-		                           					<textarea name='reason' rows="4" cols="" style="width: 80%"></textarea>
+		                           			</tr>
+		                           				<td>三、项目管理审计</td>
+		                           				<td > 
+		                           					<c:forEach items="${categorys3 }" var="bean">
+		                           						<div class="checkbox">
+													    <label>
+													      <input style="margin-top: 4px" type="checkbox" name="key3"  value="${bean.name }"> ${bean.name }
+													    </label>
+													  </div>
+		                           					</c:forEach>
 		                           				</td>
 		                           			</tr>
 		                           			<tr>
@@ -113,8 +92,8 @@
 		                           				<td colspan="5"> 
 		                           					 <h4>提示</h4>
 		                               					 <ol>
-									    					<li>调任单必须填写完整</li>
-									    					<li>必须主管签收后才能生效</li>
+									    					<li>审核单必须填写完整</li>
+									    					<li>日期变更必须提交告诉管理员</li>
 									    				</ol>
 		                           				</td>
 		                           			</tr>

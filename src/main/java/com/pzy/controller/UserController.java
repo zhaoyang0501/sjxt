@@ -46,11 +46,29 @@ public class UserController {
 	}
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(Model model,User user) {
+		user.setPassword("123456");
 		userService.save(user);
 		model.addAttribute("state","success");
 		model.addAttribute("tip","添加成功！");
 		return "admin/user/create";
 	}
+	
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(Model model,Long  id) {
+		try {
+			userService.delete(id);
+			model.addAttribute("state","success");
+			model.addAttribute("tip","删除成功！");
+		} catch (Exception e) {
+			model.addAttribute("state","success");
+			model.addAttribute("tip","删除失败，外键约束！");
+		}
+		
+	
+		return "admin/user/index";
+	}
+	
 	
 	@InitBinder  
 	protected void initBinder(HttpServletRequest request,   ServletRequestDataBinder binder) throws Exception {   

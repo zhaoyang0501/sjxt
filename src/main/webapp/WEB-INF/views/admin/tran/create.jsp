@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>培训登记单 </h5>
+                        <h5>审核单位管理 </h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -33,36 +33,40 @@
 		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/tran/create" method="post">
 		                           	<table class='table table-bordered'>
 		                           		<thead>
-		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>培训登记<h3></h3></td></tr>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>单位登记<h3></h3></td></tr>
 		                           		</thead>
 		                           		<tbody>
 		                           			<tr>
-		                           				<td>培训部门</td>
+		                           				<td>单位编码</td>
 		                           				<td> <input name='dept' type="text" class="form-control"></td>
 		                           				
-		                           				<td>培训人</td>
+		                           				<td>负责人</td>
 		                           				<td> <input name='teacher' type="text" class="form-control"></td>
 		                           				
-		                           				<td>培训形式</td>
+		                           				<td>单位性质</td>
 		                           				<td> 
-							                        <input name='type' type="text" class="form-control" >
+							                        	<select name="type" class="form-control">
+							                        		<option value="国企">国企</option>
+							                        		<option value="民营企业">民营企业</option>
+							                        		<option value="事业单位">事业单位</option>
+							                        	</select>
 		                           				</td>
 		                           			</tr>
 		                           			
 		                           			
 		                           			<tr>
-		                           				<td>培训主题</td>
+		                           				<td>单位名称</td>
 		                           				<td colspan="3"> <input name='name' type="text" class="form-control"></td>
-		                           				<td>培训日期</td>
+		                           				<td>单位登记日期</td>
 		                           				<td > <input name='tranDate' type="text" class="form-control input-group date"></td>
 		                           			</tr>
 		                           			<tr>
-		                           				<td>培训对象</td>
+		                           				<td>主营业务</td>
 		                           				<td colspan="5"> <input name='remark1' type="text" class="form-control"></td>
 		                           				</tr>
 		                           			
 		                           			<tr>
-		                           				<td>培训内容</td>
+		                           				<td>单位概况规模</td>
 		                           				<td colspan="5"> 
 		                           					<textarea name='remark' rows="4" cols="" style="width: 80%"></textarea>
 		                           				</td>
@@ -72,7 +76,7 @@
 		                           				<td colspan="5"> 
 		                           					 <h4>提示</h4>
 		                               					 <ol>
-									    					<li>培训单必须填写完整</li>
+									    					<li>审核单必须填写完整</li>
 									    					<li>日期变更必须提交告诉管理员</li>
 									    				</ol>
 		                           				</td>

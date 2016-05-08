@@ -22,7 +22,7 @@
     <link href="${pageContext.request.contextPath}/css/style.min.css?v=4.1.0" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
+ <link href="${pageContext.request.contextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 </head>
 
 <body >
@@ -32,7 +32,7 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>工资查询查询 </h5>
+                        <h5>我的项目 </h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -40,8 +40,8 @@
                     <div class="ibox-content">
                         <form role="form" class="form-inline">
                             <div class="form-group">
-                                <label for="exampleInputEmail2" class="sr-only">月份</label>
-                                <input type="text" placeholder="月份yyyy-mm" id="_name" class="form-control">
+                                <label for="exampleInputEmail2" class="sr-only">项目 </label>
+                                <input type="text" placeholder="项目名称" id="_name" class="form-control">
                             </div>
                             <button class="btn btn-primary" type="button" id='_search'>查询</button>
                         </form>
@@ -51,14 +51,16 @@
                          <table ID='dt_table_view' class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-									<th>流水号</th>
-									<th>所属月份</th>
-									<th>员工</th>
-									<th>基本工资</th>
-									<th>岗位工资</th>
-									<th>绩效工资</th>
-									<th>扣除社保</th>
-									<th>实发工资</th>
+                                   <th>项目编码</th>
+									<th>项目名称</th>
+									<th>被计核单位</th>
+									<th>审计开始日期</th>
+										<th>审计结束日期</th>
+									<th>审计组长</th>
+										<th>状态</th>
+									<th>分配</th>
+										<th>删除</th>
+											<th>查看工作底稿</th>
 								</tr>
                             </thead>
                        		 <tbody>
@@ -80,7 +82,7 @@
     <!-- Data Tables -->
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/jquery.dataTables.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
-    
+     <script src="${pageContext.request.contextPath}/js/plugins/toastr/toastr.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/common.js?v=1.0.0"></script>
   
     <script src="${pageContext.request.contextPath}/js/jquerydatatable.defaults.js"></script>
@@ -90,28 +92,60 @@
    	
     $.common.setContextPath('${pageContext.request.contextPath}');
         $(document).ready(function(){
+        	<c:if test="${tip!=null}">
+	  		  toastr.success('${tip}');
+	    </c:if>
         	var table=$('#dt_table_view').DataTable( {
 	            "ajax": {
-	                "url":  $.common.getContextPath() + "/admin/pay/list",
+	                "url":  $.common.getContextPath() + "/admin/project/list",
 	                "type": "POST"
 	              },
 				"columns" : [{
-					"data" : "id"
+					"data" : "sn"
 				}, {
-					"data" : "month"
+					"data" : "name"
 				},{
-					"data" : "user.name",
+					"data" : "tran.name",
 				},{
-					"data" : "pay1",
+					"data" : "star",
 				},{
-					"data" : "pay2",
+					"data" : "end",
 				},{
-					"data" : "pay3",
+					"data" : "leader.username",
 				},{
-					"data" : "pay4",
+					"data" : "state",
 				},{
-					"data" : "pay5",
+					"data" : "id",
+				},{
+					"data" : "id",
+				},{
+					"data" : "id",
 				}] ,
+				 "columnDefs": [
+				                {
+				                    "render": function ( data, type, row ) {
+				                        return "<span class='label label-primary'>"+data+"</span>";
+				                    },
+				                    "targets":6
+				                }, {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='order?id="+data+"'>分配</a>";
+				                    },
+				                    "targets":7
+				                }, {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='delete?id="+data+"'>删除</a>";
+				                    },
+				                    "targets":8
+				                }
+				                , {
+				                    "render": function ( data, type, row ) {
+				                        return "<a tager='_blank' href='workindex?pid="+data+"'>查看底稿</a>";
+				                    },
+				                    "targets":9
+				                }
+				            ],
+									
         		"initComplete": function () {
         			var api = this.api();
         			$("#_search").on("click", function(){

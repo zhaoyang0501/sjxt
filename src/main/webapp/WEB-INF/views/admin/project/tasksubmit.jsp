@@ -23,105 +23,69 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>冷链建档 </h5>
+                        <h5>审计底稿提交</h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12 b-r">
-		                           <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/store/create" method="post">
+		                           <form  enctype="multipart/form-data" class="form-horizontal" action="${pageContext.request.contextPath}/admin/project/tasksubmit" method="post">
+		                           	<input type="hidden" name="id" value="${task.id }"/>
 		                           	<table class='table table-bordered'>
 		                           		<thead>
-		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>冷链建档表<h3></h3></td></tr>
+		                           		<tr style="text-align: center;" ><td colspan="6" ><h3>审计底稿提交<h3></h3></td></tr>
 		                           		</thead>
 		                           		<tbody>
 		                           			<tr>
-		                           				<td>设备编号</td>
-		                           				<td> <input name='sbbh' type="text" class="form-control"></td>
-		                           				
-		                           				<td>设备类型</td>
-		                           				<td>
-												   <select name='sblx' class="form-control" onchange="xzqhsq_change('xqdz',this)">
-		                           						<option value='冷藏车'>冷藏车</option>
-		                           						<option value='冰柜'>冰柜</option>
-		                           					</select>
-		                           				</td>
-		                           				
-		                           				<td>设备来源</td>
-		                           				<td> 
-							                        <select name='sbly' class="form-control" onchange="xzqhsq_change('xqdz',this)">
-		                           						<option value='中央财政'>中央财政</option>
-		                           						<option value='地方'>地方</option>
-		                           					</select>
-		                           				</td>
-		                           				
-		                           			</tr>
-		                           			
-		                           			
-		                           			<tr>
-		                           				<td>车牌号/驾驶员</td>
-		                           				<td> <input name='cphm' type="text" class="form-control"></td>
-		                           				<td>设备型号</td>
-		                           				<td> <input name='sbxh' type="text" class="form-control"></td>
-		                           				<td>出厂编号</td>
-		                           				<td> <input name='ccbh'  type="text" class="form-control"></td>
+		                           				<td>项目名称</td>
+		                           				<td>${task.project.name }</td>
 		                           			</tr>
 		                           			<tr>
-		                           				<td>生产企业</td>
-		                           				<td> <input name='scqy' type="text" class="form-control"></td>
-		                           				<td>设备容积</td>
-		                           				<td> <input  name='sbrj' type="text"  class="form-control"></td>
-		                           				<td>到货日期</td>
-		                           				<td> 
-			                           				 <input  name='dhrq' type="text"  class="form-control   date">
-												</td>
+		                           				<td>被审计单位</td>
+		                           				<td>${task.project.tran.name }</td>
 		                           			</tr>
 		                           			<tr>
-		                           				<td>启用日期</td>
-		                           				<td> 
-		                           					 <input  name='qyrq' type="text"  class="form-control   date">
-		                           				</td>
-		                           				<td>填表人</td>
-		                           				<td> 
-		                           				<input  name='tbr' type="text"  class="form-control">
-		                           				</td>
-		                           				<td>生产日期</td>
-		                           				<td><input  name='scrq' type="text"  class="form-control   date"></td>
-		                           			</tr>
-		                           			
+		                           				<td>审计人</td>
+		                           				<td>${task.user.username }</td>
 		                           			
 		                           			<tr>
-		                           				<td>设备当前状态</td>
-		                           				<td colspan="5">
-		                           					  <label class='checkbox-inline'>
-												    <input type="radio" name="sbzt"  value="1" checked>
-												    	启用
-												   </label>
-												   <label class='checkbox-inline'>
-												    <input type="radio" name="sbzt"  value="0">
-												 	  	停用 
-												  </label>
+		                           				<td>一、应用控制审计</td>
+		                           				<td > 
+		                           					${task.key1 }
 		                           				</td>
 		                           			</tr>
-		                           			
-		                           			
-		                           			
-		                           			<tr>
-		                           				<td>备注</td>
-		                           				<td colspan="5"> 
-		                           					<textarea name='remark' rows="4" cols="" style="width: 80%"></textarea>
+		                           				<td>二、一般控制审计</td>
+		                           				<td > 
+		                           					${task.key2 }
 		                           				</td>
+		                           			</tr>
+		                           			</tr>
+		                           				<td>三、项目管理审计</td>
+		                           				<td > 
+		                           					${task.key3 }
+		                           				</td>
+		                           			</tr>
+		                           			</tr>
+		                           				<td>发现的问题</td>
+		                           						<td > <input name='remark' type="text" class="form-control"></td>
+		                           			</tr>
+		                           			</tr>
+		                           				<td>可能的影响</td>
+		                           					<td > <input name='remark1' type="text" class="form-control"></td>
+		                           			</tr>
+		                           			</tr>
+		                           				<td>底稿文件</td>
+		                           					<td > <input name='file' type="file" class="form-control"></td>
 		                           			</tr>
 		                           			<tr>
 		                           				<td>提示</td>
-		                           				<td colspan="5"> 
-		                           					  <h4>提示</h4>
-							                                <ol>
-														    <li>设备编码限制为非0的数字</li>
-														    <li>设备类型除冷藏车需要填写车牌/驾驶人外，选择其他类型讲显示为设备名称</li>
-														     <li>如果没有温度自动采集设备，【绑定温度 自动采集设备】可以为空</li>
-														</ol>
+		                           				<td > 
+		                           					 <h4>提示</h4>
+		                               					 <ol>
+									    					<li>审核单必须填写完整</li>
+									    					<li>日期变更必须提交告诉管理员</li>
+									    				</ol>
 		                           				</td>
 		                           			</tr>
 		                           			<tr>
@@ -192,8 +156,7 @@
     		});	
 	    }
         $(document).ready(function(){
-        	init_xzqhsq();
-        	$(".date").datepicker({
+        	$(".input-group.date").datepicker({
         		language:  'zh-CN',
     	        weekStart: 1,
     	        todayBtn:  1,

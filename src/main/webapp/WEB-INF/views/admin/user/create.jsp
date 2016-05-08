@@ -74,28 +74,18 @@
 		                           				<td> 
 			                           				<input name='job' type="text" class="form-control">
 												</td>
-												<td>职位</td>
-		                           				<td> 
-			                           				<select name='grade' class="form-control">
-		                           						<option value='科员'>科员</option>
-		                           						<option value='副科长'>副科长</option>
-		                           						<option value='科长'>科长</option>
-		                           						<option value='副局长'>副局长</option>
-		                           						<option value='局长'>局长</option>
-		                           						<option value='处长'>处长</option>
-		                           					</select>
-												</td>
-		                           			</tr>
-		                           			
-		                           			<tr>
-		                           				<td>政治面貌</td>
+												<td>政治面貌</td>
 		                           				<td> <select name='party' class="form-control">
 		                           						<option value='群众'>群众</option>
 		                           						<option value='党员积极分子'>党员积极分子</option>
 		                           						<option value='党员'>党员</option>
 		                           					</select></td>
+		                           			</tr>
+		                           			
+		                           			<tr>
+		                           				
 		                           				<td>角色</td>
-		                           				<td colspan="3"> 
+		                           				<td colspan="5"> 
 			                           				<select name='role' class="form-control">
 		                           						<option value='审计人员'>审计人员</option>
 		                           						<option value='组长'>组长</option>

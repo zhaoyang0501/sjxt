@@ -83,30 +83,7 @@ public class IndexController {
 	public String gologin(HttpSession httpSession,String userName,String password,Model model)  {
 		User user=userService.login(userName, password);
 		List<News> list=newsService.findAll();
-		model.addAttribute("usernum",userService.findAll().size());
-    	if("admin".equals(userName)&&"123456".equals(password)){
-    		User admin=new User();  
-    		admin.setUsername("admin");
-    		admin.setPassword("123456");
-    		admin.setName("超级管理员");
-    		
-    		
-    		model.addAttribute("news",list.size()==0?new News():list.get(0));
-    		httpSession.setAttribute("adminuser", admin);
-    		return "admin/index";
-    	}
-    	if("work".equals(userName)&&"123456qwe".equals(password)){
-    		User admin=new User();  
-    		admin.setUsername("work");
-    		admin.setPassword("123456");
-    		admin.setName("企业账号");
-    		
-    		
-    		model.addAttribute("news",list.size()==0?new News():list.get(0));
-    		httpSession.setAttribute("adminuser", admin);
-    		return "admin/index";
-    	}
-    	else if(user!=null){
+    	 if(user!=null){
     		httpSession.setAttribute("adminuser", user);
     		return "admin/index";
     	}

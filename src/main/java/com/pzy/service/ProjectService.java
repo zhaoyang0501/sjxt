@@ -16,46 +16,49 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.pzy.entity.Pay;
+import com.pzy.entity.Project;
 import com.pzy.entity.User;
-import com.pzy.repository.PayRepository;
+import com.pzy.repository.ProjectRepository;
 /***
  * 
  * @author qq:263608237
  *
  */
 @Service
-public class PayService {
+public class ProjectService {
      @Autowired
-     private PayRepository payRepository;
+     private ProjectRepository projectRepository;
 
- 	public List<Pay> findTop3() {
- 		return payRepository.findAll(
+ 	public List<Project> findTop3() {
+ 		return projectRepository.findAll(
  				new PageRequest(0, 15, new Sort(Direction.DESC, "createDate")))
  				.getContent();
  	}
-     public List<Pay> findAll() {
-         return (List<Pay>) payRepository.findAll(new Sort(Direction.DESC, "id"));
+     public List<Project> findAll() {
+         return (List<Project>) projectRepository.findAll(new Sort(Direction.DESC, "id"));
      }
-     public Page<Pay> findAll(final int pageNumber, final int pageSize,final String name){
+     public Page<Project> findAll(final int pageNumber, final int pageSize,final String name,final User user){
          PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize, new Sort(Direction.DESC, "id"));
-         Specification<Pay> spec = new Specification<Pay>() {
-              public Predicate toPredicate(Root<Pay> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+         Specification<Project> spec = new Specification<Project>() {
+              public Predicate toPredicate(Root<Project> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
               Predicate predicate = cb.conjunction();
               if (name != null) {
-                   predicate.getExpressions().add(cb.like(root.get("month").as(String.class), "%"+name+"%"));
+                   predicate.getExpressions().add(cb.like(root.get("name").as(String.class), "%"+name+"%"));
+              }
+              if(!user.getRole().equals("管理员")){
+            	   predicate.getExpressions().add(cb.equal(root.get("leader").as(User.class), user));
               }
               return predicate;
               }
          };
-         Page<Pay> result = (Page<Pay>) payRepository.findAll(spec, pageRequest);
+         Page<Project> result = (Page<Project>) projectRepository.findAll(spec, pageRequest);
          return result;
      	}
      
-     public Page<Pay> findAll(final int pageNumber, final int pageSize,final Integer type ){
+     public Page<Project> findAll(final int pageNumber, final int pageSize,final Integer type ){
          PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize, new Sort(Direction.DESC, "id"));
-         Specification<Pay> spec = new Specification<Pay>() {
-              public Predicate toPredicate(Root<Pay> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+         Specification<Project> spec = new Specification<Project>() {
+              public Predicate toPredicate(Root<Project> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
               Predicate predicate = cb.conjunction();
               if (type != null) {
                   predicate.getExpressions().add(cb.equal(root.get("type").as(Integer.class),type));
@@ -63,21 +66,16 @@ public class PayService {
               return predicate;
               }
          };
-         Page<Pay> result = (Page<Pay>) payRepository.findAll(spec, pageRequest);
+         Page<Project> result = (Page<Project>) projectRepository.findAll(spec, pageRequest);
          return result;
      	}
 		public void delete(Long id){
-			payRepository.delete(id);
+			projectRepository.delete(id);
 		}
-		public Pay find(Long id){
-			  return payRepository.findOne(id);
+		public Project find(Long id){
+			  return projectRepository.findOne(id);
 		}
-		public List<Pay> find(User user){
-			
-			  return payRepository.findByUser(user);
-		}
-		
-		public void save(Pay pay){
-			payRepository.save(pay);
+		public void save(Project project){
+			projectRepository.save(project);
 		}
 }
